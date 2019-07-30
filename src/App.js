@@ -4,8 +4,8 @@ import quizQuestions from './api/quizQuestions';
 import Result from './components/Result'
 
 import logo from './logo.svg';
+import hat from './graduation-icon-png-1.jpg';
 import './App.css';
-
 
 class App extends Component {
   constructor(props) {
@@ -202,8 +202,10 @@ class App extends Component {
   }
 
   setResults (result) {
-    if (result.length >= 1) {
+    if (result.length === 1) {
       this.setState({ result: result[0] });
+    } else if (result.length >= 2) {
+      this.setState({ result: result[0] + " and/or " + result[1] });
     } else {
       this.setState({ result: 'Undetermined' });
     }
@@ -230,8 +232,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>React Quiz</h2>
+          <img src={hat} className="App-logo" alt="logo" />
+          <h2>Career Survey</h2>
+          <h5>College, Trades, Certification programs and more - find what suits you best</h5>
         </div>
         {this.state.result ? this.renderResult() : this.renderQuiz()}
       </div>
