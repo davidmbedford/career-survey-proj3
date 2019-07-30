@@ -17,7 +17,51 @@ class App extends Component {
       question: '',
       answerOptions: [],
       answer: '',
-      answersCount: {},
+      answersCount: {
+        Academics: {
+          Accounting: 0,
+          Anthropology: 0,
+          ArtHistory: 0,
+          Biochemistry: 0,
+          Biology: 0,
+          Chemistry: 0,
+          CommStudies: 0,
+          ComputerSci: 0,
+          Dance: 0,
+          Economics: 0,
+          Education: 0,
+          Engineering: 0,
+          English: 0,
+          ExerciseSci: 0,
+          EnvironmentalPolicy: 0,
+          EnvironmentalSci: 0,
+          FilmDigitalMedia: 0,
+          Finance: 0,
+          ForensicSci: 0,
+          History: 0,
+          Geography: 0,
+          GraphicDesign: 0,
+          InfoTech: 0,
+          Journalism: 0,
+          Latin: 0,
+          Marketing: 0,
+          Mathematics: 0,
+          Music: 0,
+          Nursing: 0,
+          Philosophy: 0,
+          Physics: 0,
+          PoliticalSci: 0,
+          PreLaw: 0,
+          Psychology: 0,
+          ReligiousStudies: 0,
+          SocialWork: 0,
+          Sociology: 0,
+          Statistics: 0,
+          StudioArt: 0,
+          Theater: 0,
+          WomenGenderStudies: 0
+        }
+      },
       result: ''
     };
 
@@ -25,49 +69,116 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));  
+    const answerOptions = quizQuestions.map(question => question.answers);  
   
     this.setState({
       question: quizQuestions[0].question,
-      answerOptions: shuffledAnswerOptions[0]
+      answerOptions: answerOptions[0]
     });
   }
 
-  shuffleArray(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
-  };
-
   setUserAnswer(answer) {
-    this.setState((state) => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1
-      },
+    const answersCount = this.state.answersCount
+    let applyAnswer = answer => {
+      const answer_array = answer.split(",")
+
+      if (answer_array.length === 1) {
+        let first_answer = answer_array[0]
+        answersCount['Academics'][first_answer] += 1
+
+      } else if (answer_array.length === 2) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+
+      } else if (answer_array.length === 3) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        let third_answer = answer_array[2]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+        answersCount['Academics'][third_answer] += 1
+
+      } else if (answer_array.length === 4) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        let third_answer = answer_array[2]
+        let fourth_answer = answer_array[3]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+        answersCount['Academics'][third_answer] += 1
+        answersCount['Academics'][fourth_answer] += 1
+
+      } else if (answer_array.length === 5) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        let third_answer = answer_array[2]
+        let fourth_answer = answer_array[3]
+        let fifth_answer = answer_array[4]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+        answersCount['Academics'][third_answer] += 1
+        answersCount['Academics'][fourth_answer] += 1
+        answersCount['Academics'][fifth_answer] += 1
+        
+      } else if (answer_array.length === 6) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        let third_answer = answer_array[2]
+        let fourth_answer = answer_array[3]
+        let fifth_answer = answer_array[4]
+        let sixth_answer = answer_array[5]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+        answersCount['Academics'][third_answer] += 1
+        answersCount['Academics'][fourth_answer] += 1
+        answersCount['Academics'][fifth_answer] += 1
+        answersCount['Academics'][sixth_answer] += 1
+
+      }  else if (answer_array.length === 7) {
+        let first_answer = answer_array[0]
+        let second_answer = answer_array[1]
+        let third_answer = answer_array[2]
+        let fourth_answer = answer_array[3]
+        let fifth_answer = answer_array[4]
+        let sixth_answer = answer_array[5]
+        let seventh_answer = answer_array[6]
+        answersCount['Academics'][first_answer] += 1
+        answersCount['Academics'][second_answer] += 1
+        answersCount['Academics'][third_answer] += 1
+        answersCount['Academics'][fourth_answer] += 1
+        answersCount['Academics'][fifth_answer] += 1
+        answersCount['Academics'][sixth_answer] += 1
+        answersCount['Academics'][seventh_answer] += 1
+      } 
+      return answersCount
+    }
+
+    this.setState({
+      answersCount: applyAnswer(answer),
       answer: answer
-    }));
+    })
+
+    // this.setState((state) => ({
+    //   answersCount: {
+    //     ...state.answersCount,
+    //     [answer]: (state.answersCount[answer] || 0) + 1
+    //   },
+    //   answer: answer
+      
+    // }));
+
+    console.log("this.state: " + JSON.stringify(this.state));
+    console.log("this.state.answer: " + JSON.stringify(this.state.answer));
   }
 
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
     if (this.state.questionId < quizQuestions.length) {
-        setTimeout(() => this.setNextQuestion(), 300);
+        setTimeout(() => this.setNextQuestion(), 500);
       } else {
-        setTimeout(() => this.setResults(this.getResults()), 300);
+        setTimeout(() => this.setResults(this.getResults()), 500);
       }
   }
 
