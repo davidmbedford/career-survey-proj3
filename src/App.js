@@ -83,8 +83,7 @@ class App extends Component {
       const answer_array = answer.split(",")
 
       if (answer_array.length === 1) {
-        let first_answer = answer_array[0]
-        answersCount['Academics'][first_answer] += 1
+        console.log("reply of no")
 
       } else if (answer_array.length === 2) {
         let first_answer = answer_array[0]
@@ -152,6 +151,7 @@ class App extends Component {
         answersCount['Academics'][sixth_answer] += 1
         answersCount['Academics'][seventh_answer] += 1
       } 
+
       return answersCount
     }
 
@@ -159,15 +159,6 @@ class App extends Component {
       answersCount: applyAnswer(answer),
       answer: answer
     })
-
-    // this.setState((state) => ({
-    //   answersCount: {
-    //     ...state.answersCount,
-    //     [answer]: (state.answersCount[answer] || 0) + 1
-    //   },
-    //   answer: answer
-      
-    // }));
 
     console.log("this.state: " + JSON.stringify(this.state));
     console.log("this.state.answer: " + JSON.stringify(this.state.answer));
@@ -196,15 +187,22 @@ class App extends Component {
 
   getResults() {
     const answersCount = this.state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
+    console.log(answersCount);
+    const academicAnswer = answersCount['Academics'];
+    console.log(academicAnswer);
+    const answersCountKeys = Object.keys(academicAnswer);
+    console.log(answersCountKeys);
+    const answersCountValues = answersCountKeys.map((key) => academicAnswer[key]);
+    console.log(answersCountValues);
     const maxAnswerCount = Math.max.apply(null, answersCountValues);
+    console.log(maxAnswerCount);
+    console.log("x194x: " + answersCountKeys.filter((key) => academicAnswer[key] === maxAnswerCount));
   
-    return answersCountKeys.filter((key) => answersCount[key] === maxAnswerCount);
+    return answersCountKeys.filter((key) => academicAnswer[key] === maxAnswerCount);
   }
 
   setResults (result) {
-    if (result.length === 1) {
+    if (result.length >= 1) {
       this.setState({ result: result[0] });
     } else {
       this.setState({ result: 'Undetermined' });

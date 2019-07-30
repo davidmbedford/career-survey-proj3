@@ -60,7 +60,7 @@ var quizQuestions = [
         question: "I’m patient and love working with children.",
         answers: [
             {
-                type: "Education",
+                type: "Education,Nursing",
                 content: "Yes"
             },
             {
